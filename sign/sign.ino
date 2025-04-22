@@ -62,8 +62,8 @@ void loop() {
   else if (digitalRead(28) == 0)
     outbits = letters[letter_F];
 
-  // sets output bits for the 6 PDx ports, bit mainuplate to goe from 0 bit => PD2 - PD7 
-  PORTD = ((outbits << 2) & 0xFC) & (PORTD & 0x02);
+  // sets output bits for the 6 PDx ports, bit mainuplate to go from 0 bit => PD2 - PD7 
+  PORTD = ((outbits << 2) & 0xFC) | (PORTD & 0x02);
   // sets output bits for the PB0 bit , bit manipulate to leave the rest intact
-  PORTB = ((outbits & 0x80) >> 6) & (PORTB & 0xFC);
+  PORTB = ((outbits & 0x80) >> 6) | (PORTB & 0xFC);
 }
