@@ -51,16 +51,12 @@ void loop() {
   // defaulta till letter_A
   uint8_t outbits = letters[letter_A];
 
-  if (digitalRead(24) == 0)
-    outbits = letters[letter_B];
-  else if (digitalRead(25) == 0)
-    outbits = letters[letter_C];
-  else if (digitalRead(26) == 0)
-    outbits = letters[letter_D];
-  else if (digitalRead(27) == 0)
-    outbits = letters[letter_E];
-  else if (digitalRead(28) == 0)
-    outbits = letters[letter_F];
+  for (uint8_t i = 24; i < 29; ++i) {
+    if (digitalRead(i) == 0) {
+      outbits = letters[i];
+      break;
+    }
+  }
 
   // sets output bits for the 6 PDx ports, bit mainuplate to go from 0 bit => PD2 - PD7 
   PORTD = ((outbits << 2) & 0xFC) | (PORTD & 0x02);
