@@ -1,65 +1,89 @@
 #include <stdint.h>
+#include <SPI.h>
+#include "EPD_3in52.h"
+#include "epdpaint.h"
+#include "fonts.h"
 
+static const uint8_t COLORED = 0,
+                     UNCOLORED = 1;
 /**
-* This is a code used to select current driver and show it on a BCD Display to the outside.
-*  Pins 23 to 28 select driver, can only be low at a time
-*  Pins 2-9 controls output segments in the display
-*  Display segments: A=2,B=3,C=4,D=5,E=6,F=7,G=8
-*        A
-*    ---------
-*   |         |
-* F |         | B
-*   |    G    |
-*   + -------- 
-*   |         |
-* E |         | C
-*   |    D    |
-*    ---------
+* This is a code used to select current driver and show it on a EINK Display to the outside.
 */
-enum Letters_e: uint8_t {
-    letter_A,
-    letter_B,
-    letter_C,
-    letter_D,
-    letter_E,
-    letter_F,
-    _endletters,
-};
 
-static uint8_t letters[_endletters] = {
-  0b01110111, // an A
-  0b01111111, // a  B
-  0b00111001, // a  C
-  0b00111111, // a  D
-  0b01111001, // an E
-  0b01110001, // a  F 
-};
+// The possible chars to select
+static constexpr char letters[] = "ABCDEF";
+static constexpr uint8_t lettersCnt = sizeof(letters) / sizeof(letters[0]);
+static uint8_t charCanvas[(24*17)/8] = {0}; // draw char canvas memory
+static Epd epd; // the display communication class
+
+void draw(const char letter);
+void scaleUpAndSend();
 
 void setup() {
-  // set outputs as outputs
-  // pin PD2-PD7 och PB0 (pin2-8)
-  for (uint8_t i = 2; i < 9; i++)
-    pinMode(i, OUTPUT);
-  
-  // set inputs as inputs with pull up
-  // PC0-PC5 (23-28)
-  for (uint8_t i = 23; i < 29; ++i)
-    pinMode(i, INPUT_PULLUP);
+   // put your setup code here, to run once:
+   Serial.begin(115200);
+   if (epd.Init() != 0) {
+       Serial.print("e-Paper init failed");
+       return;
+   }
+   Serial.print("3.52inch e-paper demo\r\n ");
+   Serial.print("e-Paper Clear\r\n ");
+
+   epd.display_NUM(EPD_3IN52_WHITE);
+   epd.lut_GC();
+   epd.refresh();
+
+   epd.SendCommand(0x50);
+   epd.SendData(0x17);
+
+   delay(2000);
 }
 
 void loop() {
-  // defaulta till letter_A
-  uint8_t outbits = letters[letter_A];
+  // static have a lifetime outside of this function call
+  static char prevChar = '/0'; // default to null so it renders the first time
+  // default to previous
+  char curChar = prevChar;
 
-  for (uint8_t i = 24; i < 29; ++i) {
+  // loop input switch to find which char to display.
+  for (uint8_t i = 24, end = min(29, lettersCnt); i < end; ++i) {
     if (digitalRead(i) == 0) {
-      outbits = letters[i];
+      curChar = letters[i];
       break;
     }
   }
 
-  // sets output bits for the 6 PDx ports, bit mainuplate to go from 0 bit => PD2 - PD7 
-  PORTD = ((outbits << 2) & 0xFC) | (PORTD & 0x02);
-  // sets output bits for the PB0 bit , bit manipulate to leave the rest intact
-  PORTB = ((outbits & 0x80) >> 6) | (PORTB & 0xFC);
+  if (curChar != prevChar) {
+    draw(curChar);
+    prevChar = curChar;
+  }
+}
+
+void draw(const char letter) {
+  Paint paint(charCanvas, Font24.Width, Font24.Height); // width should be the multiple of 8   
+
+  paint.SetRotate(ROTATE_90);
+  paint.Clear(UNCOLORED);
+
+  Serial.print("Drawing letter: '"); Serial.print(letter); Serial.print("'\r\n ");
+  paint.DrawCharAt(0, 0, letter, &Font24, COLORED);
+  scaleUpAndSend();
+  epd.lut_GC();
+  epd.refresh();
+  // delay(2000);
+}
+
+void scaleUpAndSend() {
+  epd.SendCommand(0x13);
+
+  // fonts are 17pixels wide, 240 is the width so nearest is scalefactor 14
+  for (int x = 0; x < 24; ++x) {
+    for (int y = 0; y < 17; ++y) {
+      for (int i = 0; i < 15; ++i) {
+        for (int j = 0; j < 14; ++j) {
+          epd.SendData(charCanvas[x * 24 + y]);
+        }
+      }
+    }
+  }
 }
