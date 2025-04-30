@@ -46,11 +46,12 @@ struct vlu_img {
         for y in range(h):
             for x in range(w):
                 # compress it
-                if (0 if pixels[x,y] else 1) != vlu or vluLen == 65535:
+                pix_vlu = 1 if pixels[x,y] else 0
+                if pix_vlu != vlu or vluLen == 65535:
                     if vluLen:
                         vlus.append((vlu, vluLen))
                     vluLen = 0
-                    vlu = 0 if pixels[x,y] else 1
+                    vlu = pix_vlu
                 vluLen += 1
             
         if vluLen:

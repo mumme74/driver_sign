@@ -13,7 +13,7 @@ static const struct vlu_img * letters[] = {
   &letter_A, &letter_B, &letter_C,
   &letter_D, &letter_E, &letter_F,
   &letter_G, &letter_H, &letter_I, 
-  nullptr, // should be the end 
+  nullptr, // nullptr marks be the end 
   // comment out unneccesary if need to save space
   &letter_J, &letter_K, &letter_L,
   &letter_M, &letter_N, &letter_O,
@@ -26,7 +26,7 @@ static constexpr uint8_t letters_sz =
   sizeof(letters) / sizeof(letters[0]);
 
 static const uint8_t input_pins[] = {
-  14,15,16,17,18,19,2,3,4,5,6
+  14,15,16,17,18,19,2,3,4,5
 };
 static constexpr uint8_t input_pins_sz =
   sizeof(input_pins) / sizeof(input_pins[0]);
