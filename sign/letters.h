@@ -1,52 +1,71 @@
 
-extern unsigned const char letter_A;
+#ifndef LETTERS_H
+#define LETTERS_H
+#include <stdint.h>
 
-extern unsigned const char letter_B;
+// this is a compressed version to save space, store len and vlu
+// render len many pixels with vlu color
+struct vlu_seg {
+  uint16_t len;
+  uint8_t vlu;
+};
+ 
 
-extern unsigned const char letter_C;
+struct vlu_img {
+  struct vlu_seg* segs;
+  uint16_t n_segs;
+};
 
-extern unsigned const char letter_D;
+extern const struct vlu_img letter_A;
 
-extern unsigned const char letter_E;
+extern const struct vlu_img letter_B;
 
-extern unsigned const char letter_F;
+extern const struct vlu_img letter_C;
 
-extern unsigned const char letter_G;
+extern const struct vlu_img letter_D;
 
-extern unsigned const char letter_H;
+extern const struct vlu_img letter_E;
 
-extern unsigned const char letter_I;
+extern const struct vlu_img letter_F;
 
-extern unsigned const char letter_J;
+extern const struct vlu_img letter_G;
 
-extern unsigned const char letter_K;
+extern const struct vlu_img letter_H;
 
-extern unsigned const char letter_L;
+extern const struct vlu_img letter_I;
 
-extern unsigned const char letter_M;
+extern const struct vlu_img letter_J;
 
-extern unsigned const char letter_N;
+extern const struct vlu_img letter_K;
 
-extern unsigned const char letter_O;
+extern const struct vlu_img letter_L;
 
-extern unsigned const char letter_P;
+extern const struct vlu_img letter_M;
 
-extern unsigned const char letter_Q;
+extern const struct vlu_img letter_N;
 
-extern unsigned const char letter_R;
+extern const struct vlu_img letter_O;
 
-extern unsigned const char letter_S;
+extern const struct vlu_img letter_P;
 
-extern unsigned const char letter_T;
+extern const struct vlu_img letter_Q;
 
-extern unsigned const char letter_U;
+extern const struct vlu_img letter_R;
 
-extern unsigned const char letter_V;
+extern const struct vlu_img letter_S;
 
-extern unsigned const char letter_W;
+extern const struct vlu_img letter_T;
 
-extern unsigned const char letter_X;
+extern const struct vlu_img letter_U;
 
-extern unsigned const char letter_Y;
+extern const struct vlu_img letter_V;
 
-extern unsigned const char letter_Z;
+extern const struct vlu_img letter_W;
+
+extern const struct vlu_img letter_X;
+
+extern const struct vlu_img letter_Y;
+
+extern const struct vlu_img letter_Z;
+
+#endif // LETTERS_H
