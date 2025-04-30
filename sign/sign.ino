@@ -21,22 +21,27 @@ void scaleUpAndSend();
 
 void setup() {
    // put your setup code here, to run once:
-   Serial.begin(115200);
-   if (epd.Init() != 0) {
-       Serial.print("e-Paper init failed");
-       return;
-   }
-   Serial.print("3.52inch e-paper demo\r\n ");
-   Serial.print("e-Paper Clear\r\n ");
+  Serial.begin(115200);
+  if (epd.Init() != 0) {
+      Serial.print("e-Paper init failed");
+      return;
+  }
+  Serial.print("3.52inch e-paper sign\r\n ");
+  Serial.print("e-Paper Clear\r\n ");
 
-   epd.display_NUM(EPD_3IN52_WHITE);
-   epd.lut_GC();
-   epd.refresh();
+  epd.display_NUM(EPD_3IN52_WHITE);
+  epd.lut_GC();
+  epd.refresh();
 
-   epd.SendCommand(0x50);
-   epd.SendData(0x17);
+  epd.SendCommand(0x50);
+  epd.SendData(0x17);
 
-   delay(2000);
+  delay(2000);
+
+  // set inputs with pulldown
+  for (uint8_t i = 24, end = min(29, lettersCnt); i < end; ++i) {
+    pinMode(i, INPUT_PULLUP);
+  }
 }
 
 void loop() {
@@ -70,7 +75,7 @@ void draw(const char letter) {
   scaleUpAndSend();
   epd.lut_GC();
   epd.refresh();
-  // delay(2000);
+  // delay(2000); // not sure if it's needed
 }
 
 void scaleUpAndSend() {
