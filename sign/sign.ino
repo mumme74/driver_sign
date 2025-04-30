@@ -1,7 +1,6 @@
 #include <stdint.h>
 #include <SPI.h>
 #include "epd4in26.h"
-#include "epdpaint.h"
 #include "letters.h"
 
 /**
@@ -15,24 +14,30 @@ static const struct vlu_img * letters[] = {
   &letter_G, &letter_H, &letter_I, 
   nullptr, // nullptr marks be the end 
   // comment out unneccesary if need to save space
-  &letter_J, &letter_K, &letter_L,
-  &letter_M, &letter_N, &letter_O,
-  &letter_P, &letter_Q, &letter_R,
-  &letter_S, &letter_T, &letter_U,
-  &letter_V, &letter_W, &letter_X,
-  &letter_Y, &letter_Z
+  // using the compression method the whole alphabet fits into memory
+  // on an R4
+  // &letter_J, &letter_K, &letter_L,
+  // &letter_M, &letter_N, &letter_O,
+  // &letter_P, &letter_Q, &letter_R,
+  // &letter_S, &letter_T, &letter_U,
+  // &letter_V, &letter_W, &letter_X,
+  // &letter_Y, &letter_Z
 };
 static constexpr uint8_t letters_sz = 
   sizeof(letters) / sizeof(letters[0]);
 
+// input pins mapping, 
+// pos0 = letters[0], pos1 = letter[1] and so on
 static const uint8_t input_pins[] = {
   14,15,16,17,18,19,2,3,4,5
 };
 static constexpr uint8_t input_pins_sz =
   sizeof(input_pins) / sizeof(input_pins[0]);
 
-static Epd epd; // the display communication class
+// the display communication class
+static Epd epd; 
 
+// forward declare
 void draw(const struct vlu_img* curImg);
 
 void setup() {
@@ -75,6 +80,7 @@ void loop() {
   }
 }
 
+// uncompress and draw at the same time.
 void draw(const struct vlu_img* curImg) {
   if (curImg == nullptr) {
     epd.Clear();
@@ -94,7 +100,8 @@ void draw(const struct vlu_img* curImg) {
 
       // rebuild the byte (8 pixels)
       byt |= seg->vlu << (7-p);
-      if (8 == ++p) {
+      if (8 == ++p) { 
+        // send in chunks of 8 bits
         epd.SendData(byt);
         byt = p = 0;
       }
