@@ -18,8 +18,8 @@ with open(os.path.join(dir_path, "letters.c"), encoding="utf8", mode="w") as c_f
         # create a cfile and a h file
         pixels = img.load()
         w,h = img.size
-        c_file.write(f"\nconst char letter_{letter}[{w}*{h}] = " + "{") 
-        h_file.write(f"\nextern const char letter_{letter};\n")
+        c_file.write(f"\nconst unsigned char letter_{letter}[{w}*{h}] = " + "{") 
+        h_file.write(f"\nextern unsigned const char letter_{letter};\n")
         for y in range(h):
             byt = p = 0
             for x in range(w):
