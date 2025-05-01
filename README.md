@@ -4,6 +4,9 @@ It's actually displays images of letters on an E-ink display.
 You can of course change those images to another one if you want, as long as it black and white and sized as screen size (800 * 480 pixels)  
 See advanced section for how to do that.  
 
+# Short video
+https://youtu.be/RyOxi74VbmI  
+
 # Hardware:  
 The display used is an E-ink display like this to fix in the cars side window.  
 https://www.electrokit.com/4.26e-papper-display-800x480px-svart/vit-spi
