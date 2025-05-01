@@ -1,33 +1,33 @@
 #include <stdint.h>
 #include <SPI.h>
 #include "epd4in26.h"
-#include "letters.h"
+#include "images.h"
 
 /**
 * This is a code used to select current driver and show it on a EINK Display to the outside.
 */
 
 // The possible chars to select
-static const struct vlu_img * letters[] = {
-  &letter_A, &letter_B, &letter_C,
-  &letter_D, &letter_E, &letter_F,
-  &letter_G, &letter_H, &letter_I, 
+static const struct vlu_img * images[] = {
+  &image_A, &image_B, &image_C,
+  &image_D, &image_E, &image_F,
+  &image_G, &image_H, &nj_racing, 
   nullptr, // nullptr marks be the end 
   // comment out unneccesary if need to save space
   // using the compression method the whole alphabet fits into memory
   // on an R4
-  // &letter_J, &letter_K, &letter_L,
-  // &letter_M, &letter_N, &letter_O,
-  // &letter_P, &letter_Q, &letter_R,
-  // &letter_S, &letter_T, &letter_U,
-  // &letter_V, &letter_W, &letter_X,
-  // &letter_Y, &letter_Z
+  // &image_J, &image_K, &image_L,
+  // &image_M, &image_N, &image_O,
+  // &image_P, &image_Q, &image_R,
+  // &image_S, &image_T, &image_U,
+  // &image_V, &image_W, &image_X,
+  // &image_Y, &image_Z
 };
-static constexpr uint8_t letters_sz = 
-  sizeof(letters) / sizeof(letters[0]);
+static constexpr uint8_t images_sz = 
+  sizeof(images) / sizeof(images[0]);
 
 // input pins mapping, 
-// pos0 = letters[0], pos1 = letter[1] and so on
+// pos0 = images[0], pos1 = image[1] and so on
 static const uint8_t input_pins[] = {
   14,15,16,17,18,19,2,3,4,5
 };
@@ -53,7 +53,7 @@ void setup() {
   epd.Clear();
 
   // set inputs with pullup
-  for (uint8_t i = 0, end = min(input_pins_sz, letters_sz); 
+  for (uint8_t i = 0, end = min(input_pins_sz, images_sz); 
        i < end; ++i) 
   {
     pinMode(input_pins[i], INPUT_PULLUP);
@@ -65,19 +65,23 @@ void loop() {
   static const struct vlu_img* prevImg = nullptr; // default to null so it renders the first time
 
   // loop input switch to find which char to display.
-  for (uint8_t i = 0, end = min(input_pins_sz, letters_sz); 
+  for (uint8_t i = 0, end = min(input_pins_sz, images_sz); 
        i < end; ++i) 
   {
     if (digitalRead(input_pins[i]) == 0) {
-      if (prevImg != letters[i]) {
+      if (prevImg != images[i]) {
         Serial.print("Changed to: ");
         Serial.println(static_cast<char>('A' + i));
-        prevImg = letters[i];
+        prevImg = images[i];
         draw(prevImg);
       }
       break;
     }
   }
+}
+
+void send_byte(uint8_t data) {
+  epd.SendData(data);
 }
 
 // uncompress and draw at the same time.
@@ -88,25 +92,10 @@ void draw(const struct vlu_img* curImg) {
   }
 
   epd.SendCommand(0x24);
-  uint32_t pixelCnt = 0;
-  uint8_t byt = 0, p = 0;
-  for (uint16_t i = 0; i < curImg->n_segs; i++) {
-    const auto* seg = &curImg->segs[i];
-    for (uint16_t j = 0; j < seg->len; j++) {
-      if (EPD_HEIGHT*EPD_WIDTH < ++pixelCnt) {
-        Serial.println("To large image for display");
-        break;
-      }
-
-      // rebuild the byte (8 pixels)
-      byt |= seg->vlu << (7-p);
-      if (8 == ++p) { 
-        // send in chunks of 8 bits
-        epd.SendData(byt);
-        byt = p = 0;
-      }
-    }
-  }
+  int res = images_render(
+              curImg, send_byte, EPD_HEIGHT*EPD_WIDTH);
+  if (!res)
+    Serial.println("Error: Failed to render, maybe image to large for the screen?");
 
   epd.TurnOnDisplay_Fast();
 }
