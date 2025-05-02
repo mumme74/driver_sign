@@ -75,6 +75,8 @@ int images_render(
 
 """)
 
+    total_size = 0
+    total_files = 0
     for filename in dir_path.iterdir():
         if not filename.suffix == '.png':
             continue
@@ -91,6 +93,7 @@ int images_render(
             vluLen = 0
             vlus = []
             vlu = 0
+            image_size = 0
             for y in range(h):
                 for x in range(w):
                     # compress it
@@ -98,13 +101,25 @@ int images_render(
                     if pix_vlu != vlu or vluLen == 65535:
                         if vluLen:
                             vlus.append((vlu, vluLen))
+                            image_size += 1
                         vluLen = 0
                         vlu = pix_vlu
                     vluLen += 1
                 
             if vluLen:
                 vlus.append((vlu, vluLen))
-            h_file.write(f"\nextern const struct vlu_img {fname};\n")
+                image_size += 1
+
+            # calc size of this image as stored in flash
+            num_bytes = image_size * 3 + 4 + 2
+            total_size += num_bytes
+            total_files += 1
+            print(f"embedded: {filename.name}, size: {num_bytes} bytes")
+
+            h_file.write(f"""
+// image: {filename.name}, size: {num_bytes}
+extern const struct vlu_img {fname};
+""")
                 
             c_file.write(f"""
 /// File: {filename.name}
@@ -114,10 +129,10 @@ static const struct vlu_seg {fname}_segs[{len(vlus)}] = """ + "{\n")
             c_file.write("};\n")
             c_file.write(f"""
 const struct vlu_img {fname} = {{
-    .segs = {fname}_segs,
-    .n_segs = {len(vlus)}
-    }};
-    """)
+  .segs = {fname}_segs,
+  .n_segs = {len(vlus)}
+}};
+""")
 
     h_file.write("""
 
@@ -126,4 +141,12 @@ const struct vlu_img {fname} = {{
 #endif
 
 #endif // IMAGES_H
+""")
+    
+    # print result
+    print(f"""
+---------------------------
+Compressed {total_files} images.
+Total_size: {total_size} bytes of flash (Only used images will take up place in flash memory).
+You need to manually copy images.c and images.h to arduino project dir.
 """)

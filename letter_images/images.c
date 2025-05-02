@@ -700,10 +700,10 @@ static const struct vlu_seg image_M_segs[668] = {
 };
 
 const struct vlu_img image_M = {
-    .segs = image_M_segs,
-    .n_segs = 668
-    };
-    
+  .segs = image_M_segs,
+  .n_segs = 668
+};
+
 /// File: image_Z.png
 static const struct vlu_seg image_Z_segs[1598] = {
   {.len = 54510, .vlu = 1},
@@ -2307,10 +2307,10 @@ static const struct vlu_seg image_Z_segs[1598] = {
 };
 
 const struct vlu_img image_Z = {
-    .segs = image_Z_segs,
-    .n_segs = 1598
-    };
-    
+  .segs = image_Z_segs,
+  .n_segs = 1598
+};
+
 /// File: image_L.png
 static const struct vlu_seg image_L_segs[573] = {
   {.len = 65535, .vlu = 1},
@@ -2889,10 +2889,10 @@ static const struct vlu_seg image_L_segs[573] = {
 };
 
 const struct vlu_img image_L = {
-    .segs = image_L_segs,
-    .n_segs = 573
-    };
-    
+  .segs = image_L_segs,
+  .n_segs = 573
+};
+
 /// File: image_N.png
 static const struct vlu_seg image_N_segs[634] = {
   {.len = 56110, .vlu = 1},
@@ -3532,10 +3532,10 @@ static const struct vlu_seg image_N_segs[634] = {
 };
 
 const struct vlu_img image_N = {
-    .segs = image_N_segs,
-    .n_segs = 634
-    };
-    
+  .segs = image_N_segs,
+  .n_segs = 634
+};
+
 /// File: image_Y.png
 static const struct vlu_seg image_Y_segs[775] = {
   {.len = 28633, .vlu = 1},
@@ -4316,10 +4316,10 @@ static const struct vlu_seg image_Y_segs[775] = {
 };
 
 const struct vlu_img image_Y = {
-    .segs = image_Y_segs,
-    .n_segs = 775
-    };
-    
+  .segs = image_Y_segs,
+  .n_segs = 775
+};
+
 /// File: image_X.png
 static const struct vlu_seg image_X_segs[1459] = {
   {.len = 25710, .vlu = 1},
@@ -5784,10 +5784,10 @@ static const struct vlu_seg image_X_segs[1459] = {
 };
 
 const struct vlu_img image_X = {
-    .segs = image_X_segs,
-    .n_segs = 1459
-    };
-    
+  .segs = image_X_segs,
+  .n_segs = 1459
+};
+
 /// File: image_O.png
 static const struct vlu_seg image_O_segs[1185] = {
   {.len = 37944, .vlu = 1},
@@ -6978,10 +6978,10 @@ static const struct vlu_seg image_O_segs[1185] = {
 };
 
 const struct vlu_img image_O = {
-    .segs = image_O_segs,
-    .n_segs = 1185
-    };
-    
+  .segs = image_O_segs,
+  .n_segs = 1185
+};
+
 /// File: image_K.png
 static const struct vlu_seg image_K_segs[1145] = {
   {.len = 62510, .vlu = 1},
@@ -8132,10 +8132,10 @@ static const struct vlu_seg image_K_segs[1145] = {
 };
 
 const struct vlu_img image_K = {
-    .segs = image_K_segs,
-    .n_segs = 1145
-    };
-    
+  .segs = image_K_segs,
+  .n_segs = 1145
+};
+
 /// File: image_J.png
 static const struct vlu_seg image_J_segs[530] = {
   {.len = 46527, .vlu = 1},
@@ -8671,10 +8671,10 @@ static const struct vlu_seg image_J_segs[530] = {
 };
 
 const struct vlu_img image_J = {
-    .segs = image_J_segs,
-    .n_segs = 530
-    };
-    
+  .segs = image_J_segs,
+  .n_segs = 530
+};
+
 /// File: image_H.png
 static const struct vlu_seg image_H_segs[602] = {
   {.len = 62510, .vlu = 1},
@@ -9282,10 +9282,10 @@ static const struct vlu_seg image_H_segs[602] = {
 };
 
 const struct vlu_img image_H = {
-    .segs = image_H_segs,
-    .n_segs = 602
-    };
-    
+  .segs = image_H_segs,
+  .n_segs = 602
+};
+
 /// File: image_I.png
 static const struct vlu_seg image_I_segs[829] = {
   {.len = 65535, .vlu = 1},
@@ -10120,10 +10120,10 @@ static const struct vlu_seg image_I_segs[829] = {
 };
 
 const struct vlu_img image_I = {
-    .segs = image_I_segs,
-    .n_segs = 829
-    };
-    
+  .segs = image_I_segs,
+  .n_segs = 829
+};
+
 /// File: image_S.png
 static const struct vlu_seg image_S_segs[1477] = {
   {.len = 65535, .vlu = 1},
@@ -11606,10 +11606,10 @@ static const struct vlu_seg image_S_segs[1477] = {
 };
 
 const struct vlu_img image_S = {
-    .segs = image_S_segs,
-    .n_segs = 1477
-    };
-    
+  .segs = image_S_segs,
+  .n_segs = 1477
+};
+
 /// File: image_D.png
 static const struct vlu_seg image_D_segs[1069] = {
   {.len = 62510, .vlu = 1},
@@ -12684,10 +12684,10 @@ static const struct vlu_seg image_D_segs[1069] = {
 };
 
 const struct vlu_img image_D = {
-    .segs = image_D_segs,
-    .n_segs = 1069
-    };
-    
+  .segs = image_D_segs,
+  .n_segs = 1069
+};
+
 /// File: image_E.png
 static const struct vlu_seg image_E_segs[1373] = {
   {.len = 65535, .vlu = 1},
@@ -14066,10 +14066,10 @@ static const struct vlu_seg image_E_segs[1373] = {
 };
 
 const struct vlu_img image_E = {
-    .segs = image_E_segs,
-    .n_segs = 1373
-    };
-    
+  .segs = image_E_segs,
+  .n_segs = 1373
+};
+
 /// File: image_R.png
 static const struct vlu_seg image_R_segs[1323] = {
   {.len = 62510, .vlu = 1},
@@ -15398,10 +15398,10 @@ static const struct vlu_seg image_R_segs[1323] = {
 };
 
 const struct vlu_img image_R = {
-    .segs = image_R_segs,
-    .n_segs = 1323
-    };
-    
+  .segs = image_R_segs,
+  .n_segs = 1323
+};
+
 /// File: image_P.png
 static const struct vlu_seg image_P_segs[947] = {
   {.len = 65535, .vlu = 1},
@@ -16354,10 +16354,10 @@ static const struct vlu_seg image_P_segs[947] = {
 };
 
 const struct vlu_img image_P = {
-    .segs = image_P_segs,
-    .n_segs = 947
-    };
-    
+  .segs = image_P_segs,
+  .n_segs = 947
+};
+
 /// File: image_G.png
 static const struct vlu_seg image_G_segs[1446] = {
   {.len = 37946, .vlu = 1},
@@ -17809,10 +17809,10 @@ static const struct vlu_seg image_G_segs[1446] = {
 };
 
 const struct vlu_img image_G = {
-    .segs = image_G_segs,
-    .n_segs = 1446
-    };
-    
+  .segs = image_G_segs,
+  .n_segs = 1446
+};
+
 /// File: image_F.png
 static const struct vlu_seg image_F_segs[951] = {
   {.len = 65535, .vlu = 1},
@@ -18769,10 +18769,10 @@ static const struct vlu_seg image_F_segs[951] = {
 };
 
 const struct vlu_img image_F = {
-    .segs = image_F_segs,
-    .n_segs = 951
-    };
-    
+  .segs = image_F_segs,
+  .n_segs = 951
+};
+
 /// File: image_Q.png
 static const struct vlu_seg image_Q_segs[1407] = {
   {.len = 37944, .vlu = 1},
@@ -20185,10 +20185,10 @@ static const struct vlu_seg image_Q_segs[1407] = {
 };
 
 const struct vlu_img image_Q = {
-    .segs = image_Q_segs,
-    .n_segs = 1407
-    };
-    
+  .segs = image_Q_segs,
+  .n_segs = 1407
+};
+
 /// File: image_B.png
 static const struct vlu_seg image_B_segs[1601] = {
   {.len = 62510, .vlu = 1},
@@ -21795,10 +21795,10 @@ static const struct vlu_seg image_B_segs[1601] = {
 };
 
 const struct vlu_img image_B = {
-    .segs = image_B_segs,
-    .n_segs = 1601
-    };
-    
+  .segs = image_B_segs,
+  .n_segs = 1601
+};
+
 /// File: image_U.png
 static const struct vlu_seg image_U_segs[602] = {
   {.len = 62654, .vlu = 1},
@@ -22406,10 +22406,10 @@ static const struct vlu_seg image_U_segs[602] = {
 };
 
 const struct vlu_img image_U = {
-    .segs = image_U_segs,
-    .n_segs = 602
-    };
-    
+  .segs = image_U_segs,
+  .n_segs = 602
+};
+
 /// File: image_T.png
 static const struct vlu_seg image_T_segs[769] = {
   {.len = 30185, .vlu = 1},
@@ -23184,10 +23184,10 @@ static const struct vlu_seg image_T_segs[769] = {
 };
 
 const struct vlu_img image_T = {
-    .segs = image_T_segs,
-    .n_segs = 769
-    };
-    
+  .segs = image_T_segs,
+  .n_segs = 769
+};
+
 /// File: image_C.png
 static const struct vlu_seg image_C_segs[1256] = {
   {.len = 37946, .vlu = 1},
@@ -24449,10 +24449,10 @@ static const struct vlu_seg image_C_segs[1256] = {
 };
 
 const struct vlu_img image_C = {
-    .segs = image_C_segs,
-    .n_segs = 1256
-    };
-    
+  .segs = image_C_segs,
+  .n_segs = 1256
+};
+
 /// File: image_A.png
 static const struct vlu_seg image_A_segs[1105] = {
   {.len = 16910, .vlu = 1},
@@ -25563,10 +25563,10 @@ static const struct vlu_seg image_A_segs[1105] = {
 };
 
 const struct vlu_img image_A = {
-    .segs = image_A_segs,
-    .n_segs = 1105
-    };
-    
+  .segs = image_A_segs,
+  .n_segs = 1105
+};
+
 /// File: image_V.png
 static const struct vlu_seg image_V_segs[829] = {
   {.len = 16632, .vlu = 1},
@@ -26401,10 +26401,10 @@ static const struct vlu_seg image_V_segs[829] = {
 };
 
 const struct vlu_img image_V = {
-    .segs = image_V_segs,
-    .n_segs = 829
-    };
-    
+  .segs = image_V_segs,
+  .n_segs = 829
+};
+
 /// File: image_W.png
 static const struct vlu_seg image_W_segs[849] = {
   {.len = 13430, .vlu = 1},
@@ -27259,10 +27259,10 @@ static const struct vlu_seg image_W_segs[849] = {
 };
 
 const struct vlu_img image_W = {
-    .segs = image_W_segs,
-    .n_segs = 849
-    };
-    
+  .segs = image_W_segs,
+  .n_segs = 849
+};
+
 /// File: nj_racing.png
 static const struct vlu_seg nj_racing_segs[4085] = {
   {.len = 33237, .vlu = 1},
@@ -31353,7 +31353,6 @@ static const struct vlu_seg nj_racing_segs[4085] = {
 };
 
 const struct vlu_img nj_racing = {
-    .segs = nj_racing_segs,
-    .n_segs = 4085
-    };
-    
+  .segs = nj_racing_segs,
+  .n_segs = 4085
+};
