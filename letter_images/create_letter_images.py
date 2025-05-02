@@ -11,6 +11,7 @@ fontfamily = "Andale Mono" # monospace font fits in display
 screen = (800, 480)
 fontsize = 760
 alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+rotation = 270
 
 # actual code below here
 dir_path = os.path.dirname(os.path.realpath(__file__))
@@ -21,5 +22,5 @@ for letter in list(alphabet):
     draw = ImageDraw.Draw(img_rot)
     font = ImageFont.truetype(fontfamily, fontsize)
     draw.text((0, 0), letter, font=font)
-    img.paste(img_rot.rotate(90, expand=1))
+    img.paste(img_rot.rotate(rotation, expand=1))
     img.save(os.path.join(dir_path, f"image_{letter}.png"))
