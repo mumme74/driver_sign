@@ -102,16 +102,19 @@ static const uint8_t input_pins[] = {
 You can change the fonts and generate new embedded images with some python scripts.  
 See python section if you need help on setting up python environment.
   
-The scripts are located in the *letter_images* folder. To generate new characters you edit at the top of *create_letter_images.py*.  
-Change to your desired font and size. If you plan on a another screen size, you need to change that to.  
-Although changing screen size also requires to use another *epdXinXX* *.cpp* and *.h* files also. That you have to figure out for your self...
+The scripts are located in the *letter_images* folder. To generate new characters you edit the the settings in *config.ini* first.  
+Change to your desired font, size rotation etc.  
+
+You can print a driver name to each letter image. See *[drivers]* section in *config.ini*.  
+
+If you plan on a another screen size, you can set that also in *config.ini*. Although changing screen size also requires to use another *epdXinXX* *.cpp* and *.h* files also. That you have to figure out for your self...
 
 It is always a good idea to use a monospaced font, meaning that each char takes up the same amount of screen space.  
 
 When done, just run the script, it should (re-)create the *image_xx.png* files in this folder.  
 You should now view those images so the fit and work as expected, before you embedd them.  
 
-## Embedd images to the software.
+## Embed images to the software.
 In order for an image to be displayed from a micro controller, such as an Arduino, we need to embedd the data into the binary before we build.  
 
 This software use a crude form of image compression So that many images can fit in memory.  
@@ -125,7 +128,9 @@ All *.png* images in the folder *letter_images* are read and compressed into c s
 All *.png* files means that you can embedd a black/white (2 color spaced) png file of the correct screen size (800 * 480) and it will get included into the *images.c* file during script execution.  
 
 Make sure the filenames don't include non english characters. I do replace ' ' with '_' and 'åäö' with 'a' and 'o', but its better to only use english chars for filnames.  
-The filenames later becomes an identifier in the c code so this is a **hard requirement**!
+The filenames later becomes an identifier in the c code so this is a **hard requirement**!  
+  
+There is also a possibility for a name clash so name your images to something descriptive, not used in the source code. 
 
 When that file has runned successfully it (re-)creates the files *images.c* and *images.h*.  
 You need to copy these files into the sign folder, be sure that the old ones are removed before pasting those files.
