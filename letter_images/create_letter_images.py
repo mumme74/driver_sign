@@ -4,16 +4,39 @@
 # drawn 90deg ccw and save that file in this folder 
 from PIL import Image, ImageDraw, ImageFont
 from pathlib import Path
-import configparser
+from sys import platform
+import configparser, os
+
+# search paths to find fonts
+fontsuffixes = ['','.ttf','.TTF','.otf','.OTF']
+
+fontpaths = ['']
+if platform == 'darwin': # apple
+  fontpaths += ['~/Library/Fonts/', 
+               '/System/Library/Fonts/Supplemental/',
+               '/Library/Fonts/']
+elif platform in ('linux', 'linux2'):
+  fontpaths += ['~/.local/fonts/', 
+               '/usr/share/fonts/',
+               '/usr/local/share/fonts/',
+               '/usr/share/fonts/truetype/'] 
+elif platform == 'win32':
+  fontpaths += [f'C:\\Users\\{os.getusername()}\\AppData\\Local\\Microsoft\\Windows\\Fonts\\',
+                'C:\\Windows\\Fonts\\']
+else:
+  print(f'Unsupported os: {platform}, may not work correctly')
 
 dir_path = Path(__file__).absolute().parent
 
 def load_font(fontfamily, fontsize):
-  try:
-    return ImageFont.truetype(fontfamily, fontsize)
-  except Exception as e:
-    print(e)
-    raise e
+  for path in fontpaths:
+    for suf in fontsuffixes:
+      font = os.path.join(path, f"{fontfamily}{suf}")
+      try:
+        return ImageFont.truetype(font, fontsize)
+      except OSError as e:
+        pass
+  raise OSError(f"Could not locate font: {fontfamily}, make sure it is installed in your system or select another font.")
 
 config = configparser.ConfigParser()
 config.read(dir_path / "config.ini")
