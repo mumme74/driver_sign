@@ -5,8 +5,12 @@
 # Note! Image width and height must match screen size
 from PIL import Image
 from pathlib import Path
+import configparser, os, shutil
 
 dir_path = Path(__file__).absolute().parent
+
+config = configparser.ConfigParser()
+config.read(dir_path / "config.ini")
 
 # ------- start File classes  ----------
 class File:
@@ -147,7 +151,14 @@ def sanitize_name(filename):
   for n, r in convert.items():
     name = name.replace(n, r)
   return name
-     
+
+def auto_copy_embedded_files():
+  if config['embed'].getboolean('autocopy_to_src_dir'):
+    for file in ('images.c', 'images.h'):
+      shutil.copyfile(dir_path / file, dir_path / '..' / 'sign' / file)
+    print(f"Copied images.c and images.h to arduino project dir.")
+  else:
+    print("You need to manually copy images.c and images.h to arduino project dir.")
 
 # embed each png in current folder
 def main():
@@ -195,8 +206,9 @@ def main():
 ---------------------------
 Compressed {total_files} images.
 Total_size: {total_size} bytes of flash (Only used images will take up place in flash memory).
-You need to manually copy images.c and images.h to arduino project dir.
 """)
+  
+  auto_copy_embedded_files()
     
 if __name__ == "__main__":
    main()
