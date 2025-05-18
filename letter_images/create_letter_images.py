@@ -115,4 +115,5 @@ for letter in list(alphabet):
               fill=fontcolor)
   img.paste(img_rot.rotate(rotation, expand=1))
   img.save(dir_path / f"image_{letter}.png")
+  print(f"Created file: image_{letter}.png")
 
